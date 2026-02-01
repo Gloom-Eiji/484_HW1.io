@@ -214,3 +214,20 @@ blockquote {
   display: none;
 }
 
+
+/* Video progress bar */
+.video-ad-progress-wrap{
+  padding: 0.5em 0.8em 0.85em;
+  background: #111;
+}
+
+.video-ad-progress{
+  width: 100%;
+  height: 10px;
+}
+
+/* When prank-skip finally succeeds */
+.video-ad-overlay.is-closed{
+  display: none;
+}
+

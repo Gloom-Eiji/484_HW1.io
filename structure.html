@@ -35,9 +35,9 @@ WAI-ARIA Roles
 <div class="video-ad-overlay" aria-hidden="false">
   <div class="video-ad-box" role="dialog" aria-modal="true" aria-label="Video advertisement">
     <div class="video-ad-top">
-      <div>Advertisement</div>
+      <div id="videoAdTimer">Ad ends in: 0s</div>
       <div class="video-ad-controls">
-        <a class="video-ad-skip" href="#no-skip">Skip</a>
+        <button id="videoAdSkip" class="video-ad-skip" type="button">Skip (0/3)</button>
       </div>
     </div>
 
@@ -45,10 +45,15 @@ WAI-ARIA Roles
       <source src="Videos/Result.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-  </div>
+  
+    <div class="video-ad-progress-wrap">
+      <progress id="videoAdProgress" class="video-ad-progress" value="0" max="100"></progress>
+    </div>
+</div>
 </div>
 
 <!-- Hardcoded Static Image Ad Modal (CSS-only close) -->
+<audio id="catLaugh" preload="auto" src="Videos/catLaugh.mp3"></audio>
 <input id="adCloseToggle" type="checkbox" aria-hidden="true">
 
 <div class="img-ad-overlay" aria-hidden="false">
@@ -60,6 +65,60 @@ WAI-ARIA Roles
     <img class="img-ad-image" src="images/ADspace/pranko-funny-ads.png" alt="Ad">
   </div>
 </div>
+
+
+<script>
+/* video prank skip logic */
+(function () {
+  const overlay = document.querySelector(".video-ad-overlay");
+  const video = document.querySelector(".video-ad-video");
+  const prog = document.getElementById("videoAdProgress");
+  const timer = document.getElementById("videoAdTimer");
+  const skipBtn = document.getElementById("videoAdSkip");
+  const laugh = document.getElementById("catLaugh");
+
+  if (!overlay || !video || !prog || !timer || !skipBtn) return;
+
+  function updateUI() {
+    const dur = video.duration || 0;
+    const cur = video.currentTime || 0;
+
+    if (dur > 0) {
+      const remaining = Math.max(0, Math.ceil(dur - cur));
+      timer.textContent = "Ad ends in: " + remaining + "s";
+      prog.value = Math.min(100, Math.max(0, (cur / dur) * 100));
+    } else {
+      timer.textContent = "Ad ends in: 0s";
+      prog.value = 0;
+    }
+  }
+
+  video.addEventListener("timeupdate", updateUI);
+  video.addEventListener("loadedmetadata", updateUI);
+
+  let clicks = 0;
+  skipBtn.textContent = "Skip (0/3)";
+
+  skipBtn.addEventListener("click", function () {
+    clicks = Math.min(3, clicks + 1);
+    skipBtn.textContent = "Skip (" + clicks + "/3)";
+
+    if (laugh) {
+      laugh.currentTime = 0;
+      laugh.play().catch(() => {});
+    }
+
+    if (clicks >= 3) {
+      video.pause();
+      overlay.classList.add("is-closed");
+    }
+  });
+
+  video.addEventListener("ended", function () {
+    overlay.classList.add("is-closed");
+  });
+})();
+</script>
 
 </body>
 </html>
