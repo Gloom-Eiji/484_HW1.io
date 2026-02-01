@@ -69,8 +69,7 @@ Using special characters
         <div id="videoAdStatus" aria-live="polite"></div>
       </div>
       <div class="video-ad-controls">
-        <button id="videoAdUnmute" class="video-ad-skip" type="button">Unmute</button>
-        <button id="videoAdSkip" class="video-ad-skip" type="button">Skip (0/3)</button>
+<button id="videoAdSkip" class="video-ad-skip" type="button">Skip (0/3)</button>
       </div>
     </div>
 
@@ -96,8 +95,7 @@ Using special characters
   const timer = document.getElementById("videoAdTimer");
   const status = document.getElementById("videoAdStatus");
   const skipBtn = document.getElementById("videoAdSkip");
-  const unmuteBtn = document.getElementById("videoAdUnmute");
-  const laugh = document.getElementById("catLaugh");
+const laugh = document.getElementById("catLaugh");
 
   if (!overlay || !video || !prog || !timer || !skipBtn) return;
 
@@ -111,7 +109,7 @@ Using special characters
     const p = video.play();
     if (p && typeof p.catch === "function") {
       p.catch(() => {
-        if (status) status.textContent = "Click anywhere to start. Use Unmute for sound 🔊";
+        if (status) status.textContent = "Click anywhere to start. Sound may require a click 🔊";
       });
     }
   }
@@ -197,16 +195,6 @@ Using special characters
     laugh.currentTime = 0;
     laugh.play().catch(() => {});
   }
-
-  if (unmuteBtn) {
-    unmuteBtn.addEventListener("click", () => {
-      video.muted = false;
-      // some browsers require a play() after unmuting
-      const p2 = video.play();
-      if (p2 && typeof p2.catch === "function") p2.catch(() => {});
-    });
-  }
-
   let clicks = 0;
   skipBtn.addEventListener("click", () => {
     clicks = Math.min(3, clicks + 1);

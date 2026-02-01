@@ -253,3 +253,32 @@ blockquote {
   background: #000;
 }
 
+
+/* Cover native video controls and place our progress bar on top */
+.video-ad-box{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Some browsers may still render controls; hide them where possible */
+video::-webkit-media-controls { display: none !important; }
+video::-webkit-media-controls-panel { display: none !important; }
+video::-webkit-media-controls-enclosure { display: none !important; }
+video::-webkit-media-controls-overlay-enclosure { display: none !important; }
+
+/* Our progress bar sits in a cover strip at the bottom */
+.video-ad-progress-wrap{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.6em 0.85em;
+  background: rgba(0,0,0,0.85);
+  pointer-events: none;
+}
+
+/* Give video a little bottom padding so content isn't hidden behind the cover */
+.video-ad-video{
+  padding-bottom: 46px;
+  box-sizing: border-box;
+}
