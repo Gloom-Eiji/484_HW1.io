@@ -157,12 +157,11 @@ Common Named Character Entities
   </tr>
 </table>
 
-<!-- Video Ad -->
+<!-- Video Ad Modal -->
 <div id="videoAdOverlay" class="video-ad-overlay" aria-hidden="true">
   <div class="video-ad-box" role="dialog" aria-modal="true" aria-label="Video advertisement">
     <div class="video-ad-top">
       <div id="videoAdTimer">Ad ends in: 0s</div>
-      <div id="videoAdMsg" style="margin-left:auto; margin-right:0.75em;"></div>
       <div class="video-ad-controls">
         <button id="videoAdSkip" class="video-ad-skip" type="button" disabled>Skip (lol) (5)</button>
       </div>
@@ -179,7 +178,7 @@ Common Named Character Entities
   </div>
 </div>
 
-<!-- Static Image Ad -->
+<!-- Static Image Ad Modal -->
 <div id="imgAdOverlay" class="img-ad-overlay" aria-hidden="true">
   <div class="img-ad-box" role="dialog" aria-modal="true" aria-label="Image advertisement">
     <div class="img-ad-top">
@@ -203,8 +202,7 @@ Common Named Character Entities
   const video = document.getElementById("videoAdVideo");
   const source = document.getElementById("videoAdSource");
   const timerEl = document.getElementById("videoAdTimer");
-    const msgEl = document.getElementById("videoAdMsg");
-const skipBtn = document.getElementById("videoAdSkip");
+  const skipBtn = document.getElementById("videoAdSkip");
   const prog = document.getElementById("videoAdProgress");
 
   const imgOverlay = document.getElementById("imgAdOverlay");
@@ -241,7 +239,6 @@ const skipBtn = document.getElementById("videoAdSkip");
     source.src = src;
     video.load();
 
-    // Show overlay
     videoOverlay.classList.add("show");
     videoOverlay.setAttribute("aria-hidden", "false");
 
@@ -253,23 +250,12 @@ const skipBtn = document.getElementById("videoAdSkip");
     enableSkipAfter(5);
   }
 
-  function closeVideoAd(fromSkip) {
+  function closeVideoAd() {
     videoOverlay.classList.remove("show");
     videoOverlay.setAttribute("aria-hidden", "true");
-
     video.pause();
     video.currentTime = 0;
-
     if (tick) clearInterval(tick);
-
-    // After video ad closes, show static ads
-    setTimeout(openImageAd, 300);
-
-    if (fromSkip) {
-      triggerKhat();
-        skipBtn.classList.add("prank-shake");
-    setTimeout(() => skipBtn.classList.remove("prank-shake"), 260);
-}
   }
 
   function startProgress() {
@@ -283,7 +269,6 @@ const skipBtn = document.getElementById("videoAdSkip");
         timerEl.textContent = "Ad ends in: " + remaining + "s";
         prog.value = Math.min(100, Math.max(0, (cur / dur) * 100));
       } else {
-        timerEl.textContent = "Ad ends in: 0s";
         prog.value = 0;
       }
     }, 200);
@@ -292,34 +277,31 @@ const skipBtn = document.getElementById("videoAdSkip");
   function enableSkipAfter(seconds) {
     let left = seconds;
     skipBtn.disabled = true;
-    skipBtn.textContent = "Skip (" + left + ")";
+    skipBtn.textContent = "Skip (lol) (" + left + ")";
     const iv = setInterval(() => {
       left--;
       if (left <= 0) {
         clearInterval(iv);
         skipBtn.disabled = false;
-        skipBtn.textContent = "Skip";
+        skipBtn.textContent = "Skip (lol)";
       } else {
-        skipBtn.textContent = "Skip (" + left + ")";
+        skipBtn.textContent = "Skip (lol) (" + left + ")";
       }
     }, 1000);
   }
 
+  // Prank skip: does not close the video
   skipBtn.addEventListener("click", () => {
-    // Prank skip: shows the khat gif + laugh, but does not close the ad.
     triggerKhat();
-        skipBtn.classList.add("prank-shake");
-    setTimeout(() => skipBtn.classList.remove("prank-shake"), 260);
-if (msgEl) {
-      msgEl.textContent = "Skip pressed… just kidding 😼";
-      setTimeout(() => { msgEl.textContent = ""; }, 900);
-    }
   });
-video.addEventListener("ended", () => closeVideoAd(false));
 
-  // ---------------- Static image ad ----------------
+  video.addEventListener("ended", () => {
+    // when video ends, keep it closed and leave image ad open if user didn't close it
+    closeVideoAd();
+  });
+
+  // ---------------- Static image ad (on top) ----------------
   let adIndex = 0;
-  let rot = null;
 
   function openImageAd() {
     if (!staticAds.length) return;
@@ -327,26 +309,32 @@ video.addEventListener("ended", () => closeVideoAd(false));
     img.src = staticAds[adIndex % staticAds.length];
     imgOverlay.classList.add("show");
     imgOverlay.setAttribute("aria-hidden", "false");
-
-    rot = setInterval(() => {
-      adIndex++;
-      img.src = staticAds[adIndex % staticAds.length];
-    }, 4000);
   }
+
+  // rotate images even while open (layered fun)
+  const rot = setInterval(() => {
+    if (!imgOverlay.classList.contains("show")) return;
+    adIndex++;
+    img.src = staticAds[adIndex % staticAds.length];
+  }, 2500);
+
+  // If an image fails to load (path/case issue), advance to the next one
+  img.addEventListener("error", () => {
+    adIndex++;
+    img.src = staticAds[adIndex % staticAds.length];
+  });
 
   function closeImageAd() {
     imgOverlay.classList.remove("show");
     imgOverlay.setAttribute("aria-hidden", "true");
-    if (rot) clearInterval(rot);
   }
 
   imgClose.addEventListener("click", closeImageAd);
-  imgOverlay.addEventListener("click", (e) => {
-    if (e.target === imgOverlay) closeImageAd();
-  });
 
   window.addEventListener("load", () => {
+    // Layer them: show video first, then image on top
     setTimeout(openVideoAd, 600);
+    setTimeout(openImageAd, 950);
   });
 })();
 </script>
