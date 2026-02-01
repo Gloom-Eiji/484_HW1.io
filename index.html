@@ -207,8 +207,28 @@
     }
   }, 1000);
 
-  skipBtn.addEventListener("click", () => closeAd(true));
-  video.addEventListener("ended", () => closeAd(false));
+  
+  function triggerKhat() {
+    // Create a new popup every time (spammable)
+    const wrap = document.createElement("div");
+    wrap.className = "khat-pop";
+    const im = document.createElement("img");
+    im.src = "images/ADspace/khat.gif";
+    im.alt = "khat";
+    wrap.appendChild(im);
+    document.body.appendChild(wrap);
+
+    // Play laugh sound (reset each time)
+    laugh.currentTime = 0;
+    laugh.play().catch(() => {});
+
+    // Fade out then remove
+    setTimeout(() => wrap.classList.add("fade"), 450);
+    setTimeout(() => wrap.remove(), 950);
+  }
+
+skipBtn.addEventListener("click", () => { triggerKhat(); closeAd(true); });
+video.addEventListener("ended", () => closeAd(false));
 
   window.addEventListener("load", () => setTimeout(openAd, 600));
 })();

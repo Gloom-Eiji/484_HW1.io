@@ -177,3 +177,27 @@ blockquote {
   background: #000;
 }
 
+
+/* Khat skip popup */
+.khat-pop{
+  position: fixed;
+  left: 50%;
+  top: 18%;
+  transform: translateX(-50%);
+  width: min(260px, 70vw);
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 450ms ease;
+  pointer-events: none;
+}
+
+.khat-pop.fade{
+  opacity: 0;
+}
+
+.khat-pop img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
