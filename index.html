@@ -5,13 +5,9 @@
 <title>Introduction to HTML</title>
 <link href="./_css/styles.css" rel="stylesheet" type="text/css">
 </head>
-<body class="rainbow">
-<header>
-  <h1>Comp 484</h1>
-  <h2>Introduction to HTML</h2>
-</header>
-
-<nav>
+<body>
+Comp 484
+Introduction to HTML
 <ul>
   <li><a href="index.html" title="Introduction to HTML">Introduction to HTML</a></li>
   <li><a href="syntax.html" title="HTML syntax">HTML syntax</a></li>
@@ -19,30 +15,25 @@
   <li><a href="reference.html" title="HTML Reference">HTML reference</a></li>
   <li><a href="next.html" title="Next steps">Next steps</a></li>
 </ul>
-</nav>
-<div class="ad-slot">Ad space</div>
+<img src="images/tags.png" alt="HTML" width="310" height="375" class="flowRight">HTML, or <b>Hypertext Markup Language</b>, is the language used to describe the structure of content on the web. As with other markup languages, it uses tags to identify page elements and describe the page&rsquo;s semantic structure. An easy way to visualize this is to consider the various types of documents you see on a day-to-day basis, like magazine and newspaper articles or documents created in a program like Microsoft Word. The formatting of those documents ensures that the information is presented clearly, with a distinct hierarchy. This allows readers to quickly scan the page and determine which information is important and how the content relates to each other. HTML allows us to do that for web pages by first establishing the overall document structure, and then formatting elements like headings and paragraphs.
 
+History
 
-<main>
-  <p><img src="images/tags.png" alt="HTML" width="310" height="375" class="flowRight">HTML, or <b>Hypertext Markup Language</b>, is the language used to describe the structure of content on the web. As with other markup languages, it uses tags to identify page elements and describe the page&rsquo;s semantic structure. An easy way to visualize this is to consider the various types of documents you see on a day-to-day basis, like magazine and newspaper articles or documents created in a program like Microsoft Word. The formatting of those documents ensures that the information is presented clearly, with a distinct hierarchy. This allows readers to quickly scan the page and determine which information is important and how the content relates to each other. HTML allows us to do that for web pages by first establishing the overall document structure, and then formatting elements like headings and paragraphs.</p>
+HTML can trace its roots back to 1989 at <b>CERN</b>, the European Laboratory for Particle Physics. There, Tim Berners-Lee came up with the idea of having scientists from around the world collaborate on research. His idea was rather than simply making documents available on a server as many people were doing at the time, the documents themselves should be able to link to one another, in a way that would enhance collaboration and make information easier to find and more accessible. From this idea Tim created HTML (based off SGML, an earlier markup language) to format pages and HTTP (or Hypertext Transfer Protocol) to transfer them from one computer to another. Although the world didn&rsquo;t quite realize it yet, the World Wide Web was born.
 
-  <h3>History</h3>
+As the popularity of the web increased in the early 90s, HTML underwent a series of rapid changes. Browser manufacturers like Netscape and Microsoft started to develop their own proprietary tags, and development bodies like the IETF (the Internet Engineering Task Force) and the W3C (the World Wide Web Consortium) were finding it difficult to gain traction with the standardization process of HTML. By 1995, the W3C created an editorial review board for HTML that included members of the W3C as well as representatives from browser developers and other organizations. This collaborative board had a major impact in stabilizing the HTML standard and reducing the uneven implementations that had plagued earlier browsers.
 
-  <p>HTML can trace its roots back to 1989 at <b>CERN</b>, the European Laboratory for Particle Physics. There, Tim Berners-Lee came up with the idea of having scientists from around the world collaborate on research. His idea was rather than simply making documents available on a server as many people were doing at the time, the documents themselves should be able to link to one another, in a way that would enhance collaboration and make information easier to find and more accessible. From this idea Tim created HTML (based off SGML, an earlier markup language) to format pages and HTTP (or Hypertext Transfer Protocol) to transfer them from one computer to another. Although the world didn&rsquo;t quite realize it yet, the World Wide Web was born.</p>
+This resulted in the HTML 4.0 specification being released in 1998. It was the most stable version of HTML up to that point, and formalized many of the improvements made to HTML over the years. It&rsquo;s still the most widely used version of HTML and remains the baseline for authors and implementers alike.
 
-  <p>As the popularity of the web increased in the early 90s, HTML underwent a series of rapid changes. Browser manufacturers like Netscape and Microsoft started to develop their own proprietary tags, and development bodies like the IETF (the Internet Engineering Task Force) and the W3C (the World Wide Web Consortium) were finding it difficult to gain traction with the standardization process of HTML. By 1995, the W3C created an editorial review board for HTML that included members of the W3C as well as representatives from browser developers and other organizations. This collaborative board had a major impact in stabilizing the HTML standard and reducing the uneven implementations that had plagued earlier browsers.</p>
+Around the time that HTML 4.0 was published, a movement began to evolve HTML towards a more flexible style of markup language. Although authors had tried to anticipate the tags necessary to markup documents, the spread of the World Wide Web and the diversity of user agents made keeping up with requirements difficult. In the eyes of many, migrating to a markup language like XML, which allows authors to create their own tags to represent content, would alleviate those concerns and allow HTML to evolve organically. XML also contains stricter formatting rules than HTML, and a sizable number of authors and developers found HTML&rsquo;s lax parsing rules problematic. This effort resulted in the publishing of the XHTML 1.0 specification in 2000. Although it was not a dramatic departure from HTML 4.0, it did introduce new syntax rules to conform to XML requirements and eliminated the HTML elements that were seen to be dictating the presentation of content rather than the structure of it.
 
-  <p>This resulted in the HTML 4.0 specification being released in 1998. It was the most stable version of HTML up to that point, and formalized many of the improvements made to HTML over the years. It&rsquo;s still the most widely used version of HTML and remains the baseline for authors and implementers alike.</p>
+Shortly after the 1.0 specification was published, work began on XHTML 2.0, which was to move HTML further towards XML. XHTML 2.0 was a dramatic departure from previous versions of HTML and was never able to gain any traction among browser developers. The specification languished for years in the W3C before its charter was revoked in 2009, essentially ending development.
 
-  <p>Around the time that HTML 4.0 was published, a movement began to evolve HTML towards a more flexible style of markup language. Although authors had tried to anticipate the tags necessary to markup documents, the spread of the World Wide Web and the diversity of user agents made keeping up with requirements difficult. In the eyes of many, migrating to a markup language like XML, which allows authors to create their own tags to represent content, would alleviate those concerns and allow HTML to evolve organically. XML also contains stricter formatting rules than HTML, and a sizable number of authors and developers found HTML&rsquo;s lax parsing rules problematic. This effort resulted in the publishing of the XHTML 1.0 specification in 2000. Although it was not a dramatic departure from HTML 4.0, it did introduce new syntax rules to conform to XML requirements and eliminated the HTML elements that were seen to be dictating the presentation of content rather than the structure of it.</p>
+While the W3C was taking HTML down the XHTML path, a group of authors, developers, and organizations became frustrated with the lack of progress on updating HTML. This group decided to evolve HTML independently of the W3C and formed the Web Hypertext Application Technology Working Group (or <b>WHATWG</b>) in 2004. They began work on the Web Applications 1.0 standard, which extended HTML 4.0, adding clear parsing rules for user agents and creating APIs to make developing web applications easier. The W3C, realizing that XHTML 2.0 faced significant hurdles in adoption, began working with the WHATWG and began to jointly develop the new standard with them in 2008. Currently the W3C works on publishing a stable version of the specification, while the WHATWG continues to work on what they call a &ldquo;living standard&rdquo; of the specification. As a living standard, they&rsquo;ve removed the version number and simply refer to it as &ldquo;HTML.&rdquo;
 
-  <p><img src="images/W3C_Icon.png" alt="W3C logo" width="200" height="136" class="flowLeft">Shortly after the 1.0 specification was published, work began on XHTML 2.0, which was to move HTML further towards XML. XHTML 2.0 was a dramatic departure from previous versions of HTML and was never able to gain any traction among browser developers. The specification languished for years in the W3C before its charter was revoked in 2009, essentially ending development.</p>
+HTML timeline
 
-  <p>While the W3C was taking HTML down the XHTML path, a group of authors, developers, and organizations became frustrated with the lack of progress on updating HTML. This group decided to evolve HTML independently of the W3C and formed the Web Hypertext Application Technology Working Group (or <b>WHATWG</b>) in 2004. They began work on the Web Applications 1.0 standard, which extended HTML 4.0, adding clear parsing rules for user agents and creating APIs to make developing web applications easier. The W3C, realizing that XHTML 2.0 faced significant hurdles in adoption, began working with the WHATWG and began to jointly develop the new standard with them in 2008. Currently the W3C works on publishing a stable version of the specification, while the WHATWG continues to work on what they call a &ldquo;living standard&rdquo; of the specification. As a living standard, they&rsquo;ve removed the version number and simply refer to it as &ldquo;HTML.&rdquo;</p>
-
-  <h3>HTML timeline</h3>
-
-  <ol>
+<ol>
   <li><b>1991</b>: Tim Berners-Lee publishes &ldquo;HTML Tags&rdquo; which describes the initial 18 elements of HTML</li>
   <li><b>1992</b>: NCSA develops the Mosaic browser, which will eventually evolve into Netscape</li>
   <li><b>1994</b>: The Internet Engineering Task Force (IETF) creates an HTML working group to develop HTML specifications. Later that year the W3C was created to foster an open standards environment</li>
@@ -57,83 +48,36 @@
   <li><b>2012</b>: W3C and WHATWG announce they will develop the HTML5 standard separately</li>
 </ol>
 
-<script>
-(function () {
-  function shouldSkip(el) {
-    if (!el || el.nodeType !== 1) return false;
-    var tag = el.tagName;
-    return tag === "SCRIPT" || tag === "STYLE" || tag === "PRE" || tag === "CODE" || tag === "TEXTAREA";
-  }
-
-  function wrapTextNode(node) {
-    var text = node.nodeValue;
-    if (!text || !text.trim()) return;
-
-    var frag = document.createDocumentFragment();
-    var colorIndex = 0;
-
-    for (var i = 0; i < text.length; i++) {
-      var ch = text[i];
-      if (ch === "
-") {
-        frag.appendChild(document.createTextNode("
-"));
-        continue;
-      }
-      if (ch === " " || ch === "	") {
-        frag.appendChild(document.createTextNode(ch));
-        continue;
-      }
-      var span = document.createElement("span");
-      span.className = "rb" + (colorIndex % 6);
-      span.textContent = ch;
-      frag.appendChild(span);
-      colorIndex++;
-    }
-    node.parentNode.replaceChild(frag, node);
-  }
-
-  function rainbowify(root) {
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) {
-        var p = n.parentNode;
-        if (!p) return NodeFilter.FILTER_REJECT;
-
-        var cur = p;
-        while (cur) {
-          if (shouldSkip(cur)) return NodeFilter.FILTER_REJECT;
-          cur = cur.parentElement;
-        }
-
-        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-
-    var nodes = [];
-    var current;
-    while ((current = walker.nextNode())) nodes.push(current);
-    for (var j = 0; j < nodes.length; j++) wrapTextNode(nodes[j]);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    var targets = document.querySelectorAll(".rainbow");
-    for (var i = 0; i < targets.length; i++) rainbowify(targets[i]);
-  });
-})();
-</script>
-
-<div id="adOverlay" class="ad-overlay" aria-hidden="true">
-  <div class="ad-box" role="dialog" aria-modal="true" aria-label="Video ad">
-    <div class="ad-top">
-      <div id="adTimer" class="ad-timer">Ad ends in: 0s</div>
-      <button id="adSkip" class="ad-skip" type="button" disabled>Skip (5)</button>
+<!-- Video Ad -->
+<div id="videoAdOverlay" class="video-ad-overlay" aria-hidden="true">
+  <div class="video-ad-box" role="dialog" aria-modal="true" aria-label="Video advertisement">
+    <div class="video-ad-top">
+      <div id="videoAdTimer">Ad ends in: 0s</div>
+      <div id="videoAdMsg" style="margin-left:auto; margin-right:0.75em;"></div>
+      <div class="video-ad-controls">
+        <button id="videoAdSkip" class="video-ad-skip" type="button" disabled>Skip (lol) (5)</button>
+      </div>
     </div>
 
-    <video id="adVideo" class="ad-video" playsinline>
-      <source id="adSource" src="" type="video/mp4">
+    <video id="videoAdVideo" class="video-ad-video" playsinline muted>
+      <source id="videoAdSource" src="" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+
+    <div class="video-ad-progress-wrap">
+      <progress id="videoAdProgress" class="video-ad-progress" value="0" max="100"></progress>
+    </div>
+  </div>
+</div>
+
+<!-- Static Image Ad -->
+<div id="imgAdOverlay" class="img-ad-overlay" aria-hidden="true">
+  <div class="img-ad-box" role="dialog" aria-modal="true" aria-label="Image advertisement">
+    <div class="img-ad-top">
+      <div class="img-ad-label">Advertisement</div>
+      <button id="imgAdClose" class="img-ad-close" type="button" aria-label="Close">×</button>
+    </div>
+    <img id="imgAdImage" class="img-ad-image" src="" alt="Ad">
   </div>
 </div>
 
@@ -141,75 +85,28 @@
 
 <script>
 (function () {
-  const adMap = {
-    "index.html": "videos/Result.mp4",
-    "links.html": "videos/LegoCity_AD.mp4",
-    "next.html": "videos/Whiteout_Survival_AD.mp4",
-    "reference.html": "videos/Ant_Kingdom_AD.mp4",
-    "structure.html": "videos/Result.mp4",
-    "syntax.html": "videos/LegoCity_AD.mp4"
-  };
+  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 
-  const overlay = document.getElementById("adOverlay");
-  const video = document.getElementById("adVideo");
-  const source = document.getElementById("adSource");
-  const timerEl = document.getElementById("adTimer");
-  const skipBtn = document.getElementById("adSkip");
+  const videoMap = {'index.html': 'videos/Result.mp4', 'links.html': 'videos/LegoCity_AD.mp4', 'next.html': 'videos/Whiteout_Survival_AD.mp4', 'reference.html': 'videos/Ant_Kingdom_AD.mp4', 'structure.html': 'videos/Result.mp4', 'syntax.html': 'videos/LegoCity_AD.mp4'};
+  const staticAds = ['images/ADspace/Binking.JPG', 'images/ADspace/Burger.jpg', 'images/ADspace/Butter.jpg', 'images/ADspace/im_ALPHA.jpg', 'images/ADspace/Indeed.JPG', 'images/ADspace/InternshipAD.JPG', 'images/ADspace/pranko-funny-ads.png', 'images/ADspace/studentLoans.jpg', 'images/ADspace/unemployment.JPG', 'images/ADspace/Handshake.JPG'];
+
+  const videoOverlay = document.getElementById("videoAdOverlay");
+  const video = document.getElementById("videoAdVideo");
+  const source = document.getElementById("videoAdSource");
+  const timerEl = document.getElementById("videoAdTimer");
+    const msgEl = document.getElementById("videoAdMsg");
+const skipBtn = document.getElementById("videoAdSkip");
+  const prog = document.getElementById("videoAdProgress");
+
+  const imgOverlay = document.getElementById("imgAdOverlay");
+  const img = document.getElementById("imgAdImage");
+  const imgClose = document.getElementById("imgAdClose");
+
   const laugh = document.getElementById("catLaugh");
 
-  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-  const videoSrc = adMap[page];
-  if (!videoSrc) return;
+  if (!videoOverlay || !video || !source || !timerEl || !skipBtn || !prog || !imgOverlay || !img || !imgClose) return;
 
-  function openAd() {
-    source.src = videoSrc;
-    video.load();
-    overlay.classList.add("show");
-    overlay.setAttribute("aria-hidden", "false");
-    video.controls = false;
-    video.play().catch(() => {});
-    startRemainingTimer();
-  }
-
-  function closeAd(playLaugh) {
-    overlay.classList.remove("show");
-    overlay.setAttribute("aria-hidden", "true");
-    video.pause();
-    video.currentTime = 0;
-
-    if (playLaugh) {
-      laugh.currentTime = 0;
-      laugh.play().catch(() => {});
-    }
-  }
-
-  let tick = null;
-  function startRemainingTimer() {
-    clearInterval(tick);
-    tick = setInterval(() => {
-      const remaining = Math.max(0, Math.ceil((video.duration || 0) - video.currentTime));
-      timerEl.textContent = "Ad ends in: " + remaining + "s";
-      if (remaining === 0 && video.duration) clearInterval(tick);
-    }, 250);
-  }
-
-  let skipLeft = 5;
-  skipBtn.disabled = true;
-  skipBtn.textContent = "Skip (" + skipLeft + ")";
-  const skipInterval = setInterval(() => {
-    skipLeft--;
-    if (skipLeft <= 0) {
-      clearInterval(skipInterval);
-      skipBtn.disabled = false;
-      skipBtn.textContent = "Skip";
-    } else {
-      skipBtn.textContent = "Skip (" + skipLeft + ")";
-    }
-  }, 1000);
-
-  
   function triggerKhat() {
-    // Create a new popup every time (spammable)
     const wrap = document.createElement("div");
     wrap.className = "khat-pop";
     const im = document.createElement("img");
@@ -218,26 +115,132 @@
     wrap.appendChild(im);
     document.body.appendChild(wrap);
 
-    // Play laugh sound (reset each time)
     laugh.currentTime = 0;
     laugh.play().catch(() => {});
 
-    // Fade out then remove
     setTimeout(() => wrap.classList.add("fade"), 450);
     setTimeout(() => wrap.remove(), 950);
   }
 
-skipBtn.addEventListener("click", () => { triggerKhat(); closeAd(true); });
-video.addEventListener("ended", () => closeAd(false));
+  // ---------------- Video ad ----------------
+  let tick = null;
 
-  window.addEventListener("load", () => setTimeout(openAd, 600));
+  function openVideoAd() {
+    const src = videoMap[page];
+    if (!src) return;
+
+    source.src = src;
+    video.load();
+
+    // Show overlay
+    videoOverlay.classList.add("show");
+    videoOverlay.setAttribute("aria-hidden", "false");
+
+    // Autoplay is more reliable when muted
+    video.muted = true;
+    video.play().catch(() => {});
+
+    startProgress();
+    enableSkipAfter(5);
+  }
+
+  function closeVideoAd(fromSkip) {
+    videoOverlay.classList.remove("show");
+    videoOverlay.setAttribute("aria-hidden", "true");
+
+    video.pause();
+    video.currentTime = 0;
+
+    if (tick) clearInterval(tick);
+
+    // After video ad closes, show static ads
+    setTimeout(openImageAd, 300);
+
+    if (fromSkip) {
+      triggerKhat();
+        skipBtn.classList.add("prank-shake");
+    setTimeout(() => skipBtn.classList.remove("prank-shake"), 260);
+}
+  }
+
+  function startProgress() {
+    if (tick) clearInterval(tick);
+    tick = setInterval(() => {
+      const dur = video.duration || 0;
+      const cur = video.currentTime || 0;
+
+      if (dur > 0) {
+        const remaining = Math.max(0, Math.ceil(dur - cur));
+        timerEl.textContent = "Ad ends in: " + remaining + "s";
+        prog.value = Math.min(100, Math.max(0, (cur / dur) * 100));
+      } else {
+        timerEl.textContent = "Ad ends in: 0s";
+        prog.value = 0;
+      }
+    }, 200);
+  }
+
+  function enableSkipAfter(seconds) {
+    let left = seconds;
+    skipBtn.disabled = true;
+    skipBtn.textContent = "Skip (" + left + ")";
+    const iv = setInterval(() => {
+      left--;
+      if (left <= 0) {
+        clearInterval(iv);
+        skipBtn.disabled = false;
+        skipBtn.textContent = "Skip";
+      } else {
+        skipBtn.textContent = "Skip (" + left + ")";
+      }
+    }, 1000);
+  }
+
+  skipBtn.addEventListener("click", () => {
+    // Prank skip: shows the khat gif + laugh, but does not close the ad.
+    triggerKhat();
+        skipBtn.classList.add("prank-shake");
+    setTimeout(() => skipBtn.classList.remove("prank-shake"), 260);
+if (msgEl) {
+      msgEl.textContent = "Skip pressed… just kidding 😼";
+      setTimeout(() => { msgEl.textContent = ""; }, 900);
+    }
+  });
+video.addEventListener("ended", () => closeVideoAd(false));
+
+  // ---------------- Static image ad ----------------
+  let adIndex = 0;
+  let rot = null;
+
+  function openImageAd() {
+    if (!staticAds.length) return;
+
+    img.src = staticAds[adIndex % staticAds.length];
+    imgOverlay.classList.add("show");
+    imgOverlay.setAttribute("aria-hidden", "false");
+
+    rot = setInterval(() => {
+      adIndex++;
+      img.src = staticAds[adIndex % staticAds.length];
+    }, 4000);
+  }
+
+  function closeImageAd() {
+    imgOverlay.classList.remove("show");
+    imgOverlay.setAttribute("aria-hidden", "true");
+    if (rot) clearInterval(rot);
+  }
+
+  imgClose.addEventListener("click", closeImageAd);
+  imgOverlay.addEventListener("click", (e) => {
+    if (e.target === imgOverlay) closeImageAd();
+  });
+
+  window.addEventListener("load", () => {
+    setTimeout(openVideoAd, 600);
+  });
 })();
 </script>
 
-</body>
-</html>
-
-<div class="ad-slot">Ad space</div>
-</main>
 </body>
 </html>

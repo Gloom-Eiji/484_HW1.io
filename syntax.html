@@ -5,13 +5,9 @@
 <title>HTML Syntax</title>
 <link href="_css/styles.css" rel="stylesheet" type="text/css">
 </head>
-<body class="rainbow">
-<header>
-  <h1>Comp 484</h1>
-  <h2>HTML Syntax</h2>
-</header>
-
-<nav>
+<body>
+Comp 484 
+HTML Syntax
 <ul>
   <li><a href="index.html" title="Introduction to HTML">Introduction to HTML</a></li>
   <li><a href="syntax.html" title="HTML syntax">HTML syntax</a></li>
@@ -19,134 +15,82 @@
   <li><a href="reference.html" title="HTML Reference">HTML reference</a></li>
   <li><a href="next.html" title="Next steps">Next steps</a></li>
 </ul>
-</nav>
-<div class="ad-slot">Ad space</div>
+<p>Because HTML is often the people&rsquo;s first experience with coding, there can be a fair amount of apprehension about learning it. Thankfully, HTML syntax is relatively simple and easy to learn. Most people can learn the basics of HTML and begin coding it within the same day.</p>
+A markup language
+<p>HTML is a markup language. That means that content on the page is &ldquo;marked up&rdquo; by tags which identify the content inside of them. A paragraph, for example, can be identified by placing the &ldquo;&lt;p&gt;&rdquo; opening tag prior to the paragraphs content and the &ldquo;&lt;/p&gt;&rdquo; closing tag at the end of a paragraph. The full paragraph would look like this:</p>
+<pre><code>&lt;p&gt;This is a paragraph.&lt;/p&gt;</code></pre>
+<p>Tags consist of a left-angle bracket (&lt;) followed by a character or characters that identify the tag (the &ldquo;p&rdquo; for paragraph) and a closing right-angle bracket (&gt;). The closing tags for an element are exactly the same as an opening tag, except that a forward slash (/) will precede the tags characters.<br>
+  Although most elements require an opening and a closing tag, the closing tag is optional for some elements and not required at all for others. While there are exceptions to the rule, for the most part any element that contains content inside the opening and closing tags also requires a closing tag.</p>
+Basic document structure
+<p>The core of all HTML documents revolves around three basic tags. First, an html tag (&lt;html&gt;) is required to identify the document as an HTML file. Directly inside the html tag, you&rsquo;ll find the head element (&lt;head&gt;). The head of a document is where you&rsquo;ll find the document&rsquo;s metadata, the document title, and links to external resources such as style sheets and scripts. A good way to think about the document&rsquo;s head is that it doesn&rsquo;t contain any of the page&rsquo;s <em>visual</em> content rather it contains information about the document and the resources that help make the page work. Directly after the document&rsquo;s head, you&rsquo;ll find its body (&lt;body&gt;). The body is where you&rsquo;ll find all of the page&rsquo;s actual content. Headings, paragraphs, images, lists, tables, and other content will be located here. At its most basic, an HTML file would look like this:</p>
+<pre><code>
+&lt;html&gt;     
+     &lt;head&gt;
+     &lt;/head&gt;
+     &lt;body&gt;
+     &lt;/body&gt;
+&lt;/html&gt;
+  </code></pre>
+DOCTYPES
+<p>If you&rsquo;ve looked at HTML pages before, you&rsquo;ve probably noticed a long, somewhat intimidating tag just before the opening HTML tag. This is a doctype declaration and it&rsquo;s a very important but often misunderstood component of HTML pages. Essentially, it tells the user agent parsing your page which version of HTML (or XHTML) to expect, so that it knows which syntax rules to use when rendering your page. The doctype you use should be based on the version of HTML you&rsquo;re using to author the page. While that all sounds good in theory, in reality most of the time a doctype is simply triggering &ldquo;standards-mode&rdquo; rather than &ldquo;quirks mode&rdquo; (based on older browsers non-standard way of rendering pages). For that reason alone, all HTML documents should be preceded by a doctype declaration. For more information on doctypes, and the history behind them, check out Mark Pilgrim&rsquo;s excellent section on doctypes from his <em>Dive Into HTML5</em> book. Here are some of the more common HTML doctypes:</p>
+HTML 4.0 transitional
+<pre><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</code></pre>
+XHTML 1.0 Transitional
+<pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</code></pre>
+HTML5
+<pre><code>&lt;!DOCTYPE HTML&gt;</code>
+</pre>
+Element attributes
+<p>Some elements can be enhanced through the use of attributes. Attributes allow you to provide more information or additional functionality to the content. Attributes are added to the opening tag of an element and consist of two parts, the <strong>name</strong> and <strong>value</strong>. Although the syntax varies based on the version of HTML you&rsquo;re using, it&rsquo;s standard practice to put values within quotation marks.</p>
+<pre><code>&lt;h1 class=&rdquo;headline&rdquo;&gt;Article&rsquo;s main headline&lt;/h1&gt;</code></pre>
+Replaced elements
+<p>Some HTML elements represent content that is replaced by an outside resource such as an image, form control, or a video file. These elements are referred to as <strong>replaced elements</strong> and usually have a predetermined width or height. In some cases the elements will have attributes that tell the browser where to find an external resource like an image or video.</p>
+<pre><code>&lt;img src=&ldquo;photo.jpg&rdquo; alt=&ldquo;my awesome photo&rdquo;&gt;&nbsp;</code></pre>
+Code structure
+<p>HTML documents create structure by nesting elements inside of one another. You might group a section of page content together by wrapping them within a &lt;div&gt; or &lt;section&gt; element, for example. When nesting one tag within another one, you must first close any child elements prior to closing any parent elements. <br>
+  This syntax, for example, would be <em>incorrect</em>:</p>
+<pre class="wrong"><code>&lt;p&gt;You must close all nested tags &lt;strong&gt;first!&lt;/p&gt;&lt;/strong&gt;</code></pre>
+<p>Rather, the correct syntax would be:</p>
+<pre class="correct"><code>&lt;p&gt;You must close all nested tags &lt;strong&gt;first!&lt;/strong&gt;&lt;/p&gt;</code></pre>
+<p>HTML also has specific rules about which elements can be nested within other elements. A paragraph (&lt;p&gt;) for example, can&rsquo;t be nested inside a heading (&lt;h1&gt;). &nbsp;For the most part, these rules are based around the type of content the tag represents. HTML 4 has two basic types of content: <strong>block</strong> and <strong>inline</strong>. Block-level elements typically occupy their own line within a document, usually stacking one on top of each other in the order they appear in your code. Inline-level elements can appear within the flow of block level elements. Elements like strong (&lt;strong&gt;), bold (&lt;b&gt;), emphasis (&lt;em&gt;), italic (&lt;i&gt;), and span (&lt;span&gt;) are always found inside block-level elements. <br>
+  HTML5, on the other hand, expands the concept of content types to seven different categories of content, with some elements belonging to multiple categories. This replaces the concept of block-level and inline-level elements and adds some additional nesting syntax rules. For the most part, the rules around nesting elements make sense and are fairly easy to pick up. You should be prepared, however, for it to take some time before you fully understand all of the rules surrounding nesting elements. One way to making sure to your code is structured properly is to validate your code through a service like the W3C&rsquo;s Markup Validation service.</p>
+Commenting code
+<p>Often it is helpful to leave notes to yourself or other developers within your code. Perhaps you want to remind yourself what a certain script does, or remind a co-worker how to properly structure specific content. To do this, you&rsquo;ll use comments. Comments should appear on their own line, and typically appear directly before or after the code they refer to. Comments begin with a left-angle bracket, an exclamation point, and two hyphens (&lt;!--) and end with two hyphens followed by a right-angle bracket (--&gt;).</p>
+Comment syntax:
+<pre><code>&lt;!-- This is a comment --&gt;</code></pre>
+Using special characters
+<p>Certain characters are reserved in HTML, meaning that you shouldn&rsquo;t use them outside of their specific purpose. The angle brackets, for example, are reserved for tags, and using them anywhere outside of a tag could cause parsing errors in browsers. However, you can still use these reserved characters and other special characters or symbols by using what is known as a <strong>named character entity</strong>. These special codes tell the user agent to replace the entity code with a specific character. These entities begin with an ampersand (&amp;) followed by the entity name and end with a semicolon (;). To display an ampersand, for example, you would type <strong>&amp;amp;</strong> in place of the actual ampersand. You can find named character entity lists within the HTML specifications, although the format for them can be a bit hard to read. You can also find a useful list of character entities on the <a href="reference.html#named">HTML Reference</a> page, and a more comprehensive list on Wikipedia.</p>
 
-
-<main>
-  <p>Because HTML is often the people&rsquo;s first experience with coding, there can be a fair amount of apprehension about learning it. Thankfully, HTML syntax is relatively simple and easy to learn. Most people can learn the basics of HTML and begin coding it within the same day.</p>
-  <h3>A markup language</h3>
-  <p>HTML is a markup language. That means that content on the page is &ldquo;marked up&rdquo; by tags which identify the content inside of them. A paragraph, for example, can be identified by placing the &ldquo;&lt;p&gt;&rdquo; opening tag prior to the paragraphs content and the &ldquo;&lt;/p&gt;&rdquo; closing tag at the end of a paragraph. The full paragraph would look like this:</p>
-  <pre><code>&lt;p&gt;This is a paragraph.&lt;/p&gt;</code></pre>
-  <p>Tags consist of a left-angle bracket (&lt;) followed by a character or characters that identify the tag (the &ldquo;p&rdquo; for paragraph) and a closing right-angle bracket (&gt;). The closing tags for an element are exactly the same as an opening tag, except that a forward slash (/) will precede the tags characters.<br>
-    Although most elements require an opening and a closing tag, the closing tag is optional for some elements and not required at all for others. While there are exceptions to the rule, for the most part any element that contains content inside the opening and closing tags also requires a closing tag.</p>
-  <h3>Basic document structure</h3>
-  <p>The core of all HTML documents revolves around three basic tags. First, an html tag (&lt;html&gt;) is required to identify the document as an HTML file. Directly inside the html tag, you&rsquo;ll find the head element (&lt;head&gt;). The head of a document is where you&rsquo;ll find the document&rsquo;s metadata, the document title, and links to external resources such as style sheets and scripts. A good way to think about the document&rsquo;s head is that it doesn&rsquo;t contain any of the page&rsquo;s <em>visual</em> content rather it contains information about the document and the resources that help make the page work. Directly after the document&rsquo;s head, you&rsquo;ll find its body (&lt;body&gt;). The body is where you&rsquo;ll find all of the page&rsquo;s actual content. Headings, paragraphs, images, lists, tables, and other content will be located here. At its most basic, an HTML file would look like this:</p>
-  <pre><code>
-  &lt;html&gt;     
-       &lt;head&gt;
-       &lt;/head&gt;
-       &lt;body&gt;
-       &lt;/body&gt;
-  &lt;/html&gt;
-    </code></pre>
-  <h3>Doctypes</h3>
-  <p>If you&rsquo;ve looked at HTML pages before, you&rsquo;ve probably noticed a long, somewhat intimidating tag just before the opening HTML tag. This is a doctype declaration and it&rsquo;s a very important but often misunderstood component of HTML pages. Essentially, it tells the user agent parsing your page which version of HTML (or XHTML) to expect, so that it knows which syntax rules to use when rendering your page. The doctype you use should be based on the version of HTML you&rsquo;re using to author the page. While that all sounds good in theory, in reality most of the time a doctype is simply triggering &ldquo;standards-mode&rdquo; rather than &ldquo;quirks mode&rdquo; (based on older browsers non-standard way of rendering pages). For that reason alone, all HTML documents should be preceded by a doctype declaration. For more information on doctypes, and the history behind them, check out Mark Pilgrim&rsquo;s excellent section on doctypes from his <em>Dive Into HTML5</em> book. Here are some of the more common HTML doctypes:</p>
-  <h4>HTML 4.0 transitional</h4>
-  <pre><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</code></pre>
-  <h4>XHTML 1.0 Transitional</h4>
-  <pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</code></pre>
-  <h4>HTML5</h4>
-  <pre><code>&lt;!DOCTYPE HTML&gt;</code>
-  </pre>
-  <h3>Element attributes</h3>
-  <p>Some elements can be enhanced through the use of attributes. Attributes allow you to provide more information or additional functionality to the content. Attributes are added to the opening tag of an element and consist of two parts, the <strong>name</strong> and <strong>value</strong>. Although the syntax varies based on the version of HTML you&rsquo;re using, it&rsquo;s standard practice to put values within quotation marks.</p>
-  <pre><code>&lt;h1 class=&rdquo;headline&rdquo;&gt;Article&rsquo;s main headline&lt;/h1&gt;</code></pre>
-  <h3>Replaced elements</h3>
-  <p>Some HTML elements represent content that is replaced by an outside resource such as an image, form control, or a video file. These elements are referred to as <strong>replaced elements</strong> and usually have a predetermined width or height. In some cases the elements will have attributes that tell the browser where to find an external resource like an image or video.</p>
-  <pre><code>&lt;img src=&ldquo;photo.jpg&rdquo; alt=&ldquo;my awesome photo&rdquo;&gt;&nbsp;</code></pre>
-  <h3>Code structure</h3>
-  <p>HTML documents create structure by nesting elements inside of one another. You might group a section of page content together by wrapping them within a &lt;div&gt; or &lt;section&gt; element, for example. When nesting one tag within another one, you must first close any child elements prior to closing any parent elements. <br>
-    This syntax, for example, would be <em>incorrect</em>:</p>
-  <pre class="wrong"><code>&lt;p&gt;You must close all nested tags &lt;strong&gt;first!&lt;/p&gt;&lt;/strong&gt;</code></pre>
-  <p>Rather, the correct syntax would be:</p>
-  <pre class="correct"><code>&lt;p&gt;You must close all nested tags &lt;strong&gt;first!&lt;/strong&gt;&lt;/p&gt;</code></pre>
-  <p>HTML also has specific rules about which elements can be nested within other elements. A paragraph (&lt;p&gt;) for example, can&rsquo;t be nested inside a heading (&lt;h1&gt;). &nbsp;For the most part, these rules are based around the type of content the tag represents. HTML 4 has two basic types of content: <strong>block</strong> and <strong>inline</strong>. Block-level elements typically occupy their own line within a document, usually stacking one on top of each other in the order they appear in your code. Inline-level elements can appear within the flow of block level elements. Elements like strong (&lt;strong&gt;), bold (&lt;b&gt;), emphasis (&lt;em&gt;), italic (&lt;i&gt;), and span (&lt;span&gt;) are always found inside block-level elements. <br>
-    HTML5, on the other hand, expands the concept of content types to seven different categories of content, with some elements belonging to multiple categories. This replaces the concept of block-level and inline-level elements and adds some additional nesting syntax rules. For the most part, the rules around nesting elements make sense and are fairly easy to pick up. You should be prepared, however, for it to take some time before you fully understand all of the rules surrounding nesting elements. One way to making sure to your code is structured properly is to validate your code through a service like the W3C&rsquo;s Markup Validation service.</p>
-  <h3>Commenting code</h3>
-  <p>Often it is helpful to leave notes to yourself or other developers within your code. Perhaps you want to remind yourself what a certain script does, or remind a co-worker how to properly structure specific content. To do this, you&rsquo;ll use comments. Comments should appear on their own line, and typically appear directly before or after the code they refer to. Comments begin with a left-angle bracket, an exclamation point, and two hyphens (&lt;!--) and end with two hyphens followed by a right-angle bracket (--&gt;).</p>
-  <p>Comment syntax:</p>
-  <pre><code>&lt;!-- This is a comment --&gt;</code></pre>
-  <h3>Using special characters</h3>
-  <p>Certain characters are reserved in HTML, meaning that you shouldn&rsquo;t use them outside of their specific purpose. The angle brackets, for example, are reserved for tags, and using them anywhere outside of a tag could cause parsing errors in browsers. However, you can still use these reserved characters and other special characters or symbols by using what is known as a <strong>named character entity</strong>. These special codes tell the user agent to replace the entity code with a specific character. These entities begin with an ampersand (&amp;) followed by the entity name and end with a semicolon (;). To display an ampersand, for example, you would type <strong>&amp;amp;</strong> in place of the actual ampersand. You can find named character entity lists within the HTML specifications, although the format for them can be a bit hard to read. You can also find a useful list of character entities on the <a href="reference.html#named">HTML Reference</a> page, and a more comprehensive list on Wikipedia.</p>
-  
-<script>
-(function () {
-  function shouldSkip(el) {
-    if (!el || el.nodeType !== 1) return false;
-    var tag = el.tagName;
-    return tag === "SCRIPT" || tag === "STYLE" || tag === "PRE" || tag === "CODE" || tag === "TEXTAREA";
-  }
-
-  function wrapTextNode(node) {
-    var text = node.nodeValue;
-    if (!text || !text.trim()) return;
-
-    var frag = document.createDocumentFragment();
-    var colorIndex = 0;
-
-    for (var i = 0; i < text.length; i++) {
-      var ch = text[i];
-      if (ch === "
-") {
-        frag.appendChild(document.createTextNode("
-"));
-        continue;
-      }
-      if (ch === " " || ch === "	") {
-        frag.appendChild(document.createTextNode(ch));
-        continue;
-      }
-      var span = document.createElement("span");
-      span.className = "rb" + (colorIndex % 6);
-      span.textContent = ch;
-      frag.appendChild(span);
-      colorIndex++;
-    }
-    node.parentNode.replaceChild(frag, node);
-  }
-
-  function rainbowify(root) {
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) {
-        var p = n.parentNode;
-        if (!p) return NodeFilter.FILTER_REJECT;
-
-        var cur = p;
-        while (cur) {
-          if (shouldSkip(cur)) return NodeFilter.FILTER_REJECT;
-          cur = cur.parentElement;
-        }
-
-        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-
-    var nodes = [];
-    var current;
-    while ((current = walker.nextNode())) nodes.push(current);
-    for (var j = 0; j < nodes.length; j++) wrapTextNode(nodes[j]);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    var targets = document.querySelectorAll(".rainbow");
-    for (var i = 0; i < targets.length; i++) rainbowify(targets[i]);
-  });
-})();
-</script>
-
-<div id="adOverlay" class="ad-overlay" aria-hidden="true">
-  <div class="ad-box" role="dialog" aria-modal="true" aria-label="Video ad">
-    <div class="ad-top">
-      <div id="adTimer" class="ad-timer">Ad ends in: 0s</div>
-      <button id="adSkip" class="ad-skip" type="button" disabled>Skip (5)</button>
+<!-- Video Ad -->
+<div id="videoAdOverlay" class="video-ad-overlay" aria-hidden="true">
+  <div class="video-ad-box" role="dialog" aria-modal="true" aria-label="Video advertisement">
+    <div class="video-ad-top">
+      <div id="videoAdTimer">Ad ends in: 0s</div>
+      <div id="videoAdMsg" style="margin-left:auto; margin-right:0.75em;"></div>
+      <div class="video-ad-controls">
+        <button id="videoAdSkip" class="video-ad-skip" type="button" disabled>Skip (lol) (5)</button>
+      </div>
     </div>
 
-    <video id="adVideo" class="ad-video" playsinline>
-      <source id="adSource" src="" type="video/mp4">
+    <video id="videoAdVideo" class="video-ad-video" playsinline muted>
+      <source id="videoAdSource" src="" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+
+    <div class="video-ad-progress-wrap">
+      <progress id="videoAdProgress" class="video-ad-progress" value="0" max="100"></progress>
+    </div>
+  </div>
+</div>
+
+<!-- Static Image Ad -->
+<div id="imgAdOverlay" class="img-ad-overlay" aria-hidden="true">
+  <div class="img-ad-box" role="dialog" aria-modal="true" aria-label="Image advertisement">
+    <div class="img-ad-top">
+      <div class="img-ad-label">Advertisement</div>
+      <button id="imgAdClose" class="img-ad-close" type="button" aria-label="Close">×</button>
+    </div>
+    <img id="imgAdImage" class="img-ad-image" src="" alt="Ad">
   </div>
 </div>
 
@@ -154,75 +98,28 @@
 
 <script>
 (function () {
-  const adMap = {
-    "index.html": "videos/Result.mp4",
-    "links.html": "videos/LegoCity_AD.mp4",
-    "next.html": "videos/Whiteout_Survival_AD.mp4",
-    "reference.html": "videos/Ant_Kingdom_AD.mp4",
-    "structure.html": "videos/Result.mp4",
-    "syntax.html": "videos/LegoCity_AD.mp4"
-  };
+  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 
-  const overlay = document.getElementById("adOverlay");
-  const video = document.getElementById("adVideo");
-  const source = document.getElementById("adSource");
-  const timerEl = document.getElementById("adTimer");
-  const skipBtn = document.getElementById("adSkip");
+  const videoMap = {'index.html': 'videos/Result.mp4', 'links.html': 'videos/LegoCity_AD.mp4', 'next.html': 'videos/Whiteout_Survival_AD.mp4', 'reference.html': 'videos/Ant_Kingdom_AD.mp4', 'structure.html': 'videos/Result.mp4', 'syntax.html': 'videos/LegoCity_AD.mp4'};
+  const staticAds = ['images/ADspace/Binking.JPG', 'images/ADspace/Burger.jpg', 'images/ADspace/Butter.jpg', 'images/ADspace/im_ALPHA.jpg', 'images/ADspace/Indeed.JPG', 'images/ADspace/InternshipAD.JPG', 'images/ADspace/pranko-funny-ads.png', 'images/ADspace/studentLoans.jpg', 'images/ADspace/unemployment.JPG', 'images/ADspace/Handshake.JPG'];
+
+  const videoOverlay = document.getElementById("videoAdOverlay");
+  const video = document.getElementById("videoAdVideo");
+  const source = document.getElementById("videoAdSource");
+  const timerEl = document.getElementById("videoAdTimer");
+    const msgEl = document.getElementById("videoAdMsg");
+const skipBtn = document.getElementById("videoAdSkip");
+  const prog = document.getElementById("videoAdProgress");
+
+  const imgOverlay = document.getElementById("imgAdOverlay");
+  const img = document.getElementById("imgAdImage");
+  const imgClose = document.getElementById("imgAdClose");
+
   const laugh = document.getElementById("catLaugh");
 
-  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-  const videoSrc = adMap[page];
-  if (!videoSrc) return;
+  if (!videoOverlay || !video || !source || !timerEl || !skipBtn || !prog || !imgOverlay || !img || !imgClose) return;
 
-  function openAd() {
-    source.src = videoSrc;
-    video.load();
-    overlay.classList.add("show");
-    overlay.setAttribute("aria-hidden", "false");
-    video.controls = false;
-    video.play().catch(() => {});
-    startRemainingTimer();
-  }
-
-  function closeAd(playLaugh) {
-    overlay.classList.remove("show");
-    overlay.setAttribute("aria-hidden", "true");
-    video.pause();
-    video.currentTime = 0;
-
-    if (playLaugh) {
-      laugh.currentTime = 0;
-      laugh.play().catch(() => {});
-    }
-  }
-
-  let tick = null;
-  function startRemainingTimer() {
-    clearInterval(tick);
-    tick = setInterval(() => {
-      const remaining = Math.max(0, Math.ceil((video.duration || 0) - video.currentTime));
-      timerEl.textContent = "Ad ends in: " + remaining + "s";
-      if (remaining === 0 && video.duration) clearInterval(tick);
-    }, 250);
-  }
-
-  let skipLeft = 5;
-  skipBtn.disabled = true;
-  skipBtn.textContent = "Skip (" + skipLeft + ")";
-  const skipInterval = setInterval(() => {
-    skipLeft--;
-    if (skipLeft <= 0) {
-      clearInterval(skipInterval);
-      skipBtn.disabled = false;
-      skipBtn.textContent = "Skip";
-    } else {
-      skipBtn.textContent = "Skip (" + skipLeft + ")";
-    }
-  }, 1000);
-
-  
   function triggerKhat() {
-    // Create a new popup every time (spammable)
     const wrap = document.createElement("div");
     wrap.className = "khat-pop";
     const im = document.createElement("img");
@@ -231,26 +128,132 @@
     wrap.appendChild(im);
     document.body.appendChild(wrap);
 
-    // Play laugh sound (reset each time)
     laugh.currentTime = 0;
     laugh.play().catch(() => {});
 
-    // Fade out then remove
     setTimeout(() => wrap.classList.add("fade"), 450);
     setTimeout(() => wrap.remove(), 950);
   }
 
-skipBtn.addEventListener("click", () => { triggerKhat(); closeAd(true); });
-video.addEventListener("ended", () => closeAd(false));
+  // ---------------- Video ad ----------------
+  let tick = null;
 
-  window.addEventListener("load", () => setTimeout(openAd, 600));
+  function openVideoAd() {
+    const src = videoMap[page];
+    if (!src) return;
+
+    source.src = src;
+    video.load();
+
+    // Show overlay
+    videoOverlay.classList.add("show");
+    videoOverlay.setAttribute("aria-hidden", "false");
+
+    // Autoplay is more reliable when muted
+    video.muted = true;
+    video.play().catch(() => {});
+
+    startProgress();
+    enableSkipAfter(5);
+  }
+
+  function closeVideoAd(fromSkip) {
+    videoOverlay.classList.remove("show");
+    videoOverlay.setAttribute("aria-hidden", "true");
+
+    video.pause();
+    video.currentTime = 0;
+
+    if (tick) clearInterval(tick);
+
+    // After video ad closes, show static ads
+    setTimeout(openImageAd, 300);
+
+    if (fromSkip) {
+      triggerKhat();
+        skipBtn.classList.add("prank-shake");
+    setTimeout(() => skipBtn.classList.remove("prank-shake"), 260);
+}
+  }
+
+  function startProgress() {
+    if (tick) clearInterval(tick);
+    tick = setInterval(() => {
+      const dur = video.duration || 0;
+      const cur = video.currentTime || 0;
+
+      if (dur > 0) {
+        const remaining = Math.max(0, Math.ceil(dur - cur));
+        timerEl.textContent = "Ad ends in: " + remaining + "s";
+        prog.value = Math.min(100, Math.max(0, (cur / dur) * 100));
+      } else {
+        timerEl.textContent = "Ad ends in: 0s";
+        prog.value = 0;
+      }
+    }, 200);
+  }
+
+  function enableSkipAfter(seconds) {
+    let left = seconds;
+    skipBtn.disabled = true;
+    skipBtn.textContent = "Skip (" + left + ")";
+    const iv = setInterval(() => {
+      left--;
+      if (left <= 0) {
+        clearInterval(iv);
+        skipBtn.disabled = false;
+        skipBtn.textContent = "Skip";
+      } else {
+        skipBtn.textContent = "Skip (" + left + ")";
+      }
+    }, 1000);
+  }
+
+  skipBtn.addEventListener("click", () => {
+    // Prank skip: shows the khat gif + laugh, but does not close the ad.
+    triggerKhat();
+        skipBtn.classList.add("prank-shake");
+    setTimeout(() => skipBtn.classList.remove("prank-shake"), 260);
+if (msgEl) {
+      msgEl.textContent = "Skip pressed… just kidding 😼";
+      setTimeout(() => { msgEl.textContent = ""; }, 900);
+    }
+  });
+video.addEventListener("ended", () => closeVideoAd(false));
+
+  // ---------------- Static image ad ----------------
+  let adIndex = 0;
+  let rot = null;
+
+  function openImageAd() {
+    if (!staticAds.length) return;
+
+    img.src = staticAds[adIndex % staticAds.length];
+    imgOverlay.classList.add("show");
+    imgOverlay.setAttribute("aria-hidden", "false");
+
+    rot = setInterval(() => {
+      adIndex++;
+      img.src = staticAds[adIndex % staticAds.length];
+    }, 4000);
+  }
+
+  function closeImageAd() {
+    imgOverlay.classList.remove("show");
+    imgOverlay.setAttribute("aria-hidden", "true");
+    if (rot) clearInterval(rot);
+  }
+
+  imgClose.addEventListener("click", closeImageAd);
+  imgOverlay.addEventListener("click", (e) => {
+    if (e.target === imgOverlay) closeImageAd();
+  });
+
+  window.addEventListener("load", () => {
+    setTimeout(openVideoAd, 600);
+  });
 })();
 </script>
 
-</body>
-  </html>
-
-<div class="ad-slot">Ad space</div>
-</main>
 </body>
 </html>
