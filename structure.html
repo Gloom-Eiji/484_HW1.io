@@ -31,53 +31,75 @@ W3C Warning
 <blockquote>There are currently no known implementations of the outline algorithm in graphical browsers or assistive technology user agents, although the algorithm is implemented in other software such as conformance checkers. Therefore the outline algorithm cannot be relied upon to convey document structure to users. Authors are advised to use heading rank (h1-h6) to convey document structure.</blockquote>
 WAI-ARIA Roles
 <p>Carefully structuring an HTML page is the first step into ensuring that the content is accessible to all users. You should also use WAI-ARIA role attributes where appropriate to increase accessibility and improve semantics. WAI-ARIA is short for the Web Accessibility Initiative's Accessible Rich Internet Application specification. The roles attribute attempts to identify content and its capabilities by assigning it to a predefined role. This helps assistive devices understand what the content is, how it relates to other content, and how the content can be interacted with. The W3C has a fantastic resource on how WAI-ARIA works and how it should be used with HTML.</p>
-<!-- Hardcoded Video Ad Modal (no JS) -->
-<div class="video-ad-overlay" aria-hidden="false">
+<!-- FINAL: Video Ad Modal -->
+<div id="videoAdOverlay" class="video-ad-overlay" aria-hidden="true">
   <div class="video-ad-box" role="dialog" aria-modal="true" aria-label="Video advertisement">
     <div class="video-ad-top">
-      <div id="videoAdTimer">Ad ends in: 0s</div>
+      <div class="video-ad-top-left">
+        <div id="videoAdTimer">Ad ends in: --s</div>
+        <div id="videoAdStatus" aria-live="polite"></div>
+      </div>
       <div class="video-ad-controls">
         <button id="videoAdSkip" class="video-ad-skip" type="button">Skip (0/3)</button>
       </div>
     </div>
 
-    <video class="video-ad-video" autoplay muted controls playsinline>
+    <video id="videoAdVideo" class="video-ad-video" playsinline muted>
       <source src="Videos/Result.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-  
+
     <div class="video-ad-progress-wrap">
       <progress id="videoAdProgress" class="video-ad-progress" value="0" max="100"></progress>
     </div>
-</div>
-</div>
-
-<!-- Hardcoded Static Image Ad Modal (CSS-only close) -->
-<audio id="catLaugh" preload="auto" src="Videos/catLaugh.mp3"></audio>
-<input id="adCloseToggle" type="checkbox" aria-hidden="true">
-
-<div class="img-ad-overlay" aria-hidden="false">
-  <div class="img-ad-box" role="dialog" aria-modal="true" aria-label="Image advertisement">
-    <div class="img-ad-top">
-      <div class="img-ad-label">Advertisement</div>
-      <label for="adCloseToggle" class="img-ad-close" aria-label="Close">×</label>
-    </div>
-    <img class="img-ad-image" src="images/ADspace/pranko-funny-ads.png" alt="Ad">
   </div>
 </div>
 
+<audio id="catLaugh" preload="auto" src="Videos/catLaugh.mp3"></audio>
 
 <script>
-/* video prank skip logic */
+/* FINAL: minimal JS to (1) start video reliably, (2) update progress/timer, (3) 3-click fake skip + sound + khat */
 (function () {
-  const overlay = document.querySelector(".video-ad-overlay");
-  const video = document.querySelector(".video-ad-video");
+  const overlay = document.getElementById("videoAdOverlay");
+  const video = document.getElementById("videoAdVideo");
   const prog = document.getElementById("videoAdProgress");
   const timer = document.getElementById("videoAdTimer");
+  const status = document.getElementById("videoAdStatus");
   const skipBtn = document.getElementById("videoAdSkip");
   const laugh = document.getElementById("catLaugh");
 
   if (!overlay || !video || !prog || !timer || !skipBtn) return;
+
+  // Show the modal immediately
+  overlay.classList.add("show");
+  overlay.setAttribute("aria-hidden", "false");
+
+  function tryPlay() {
+    // Muted autoplay is allowed on most browsers, but still may fail; we handle failure with a user gesture fallback.
+    video.muted = true;
+    const p = video.play();
+    if (p && typeof p.catch === "function") {
+      p.catch(() => {
+        if (status) status.textContent = "Click anywhere to start the ad 😈";
+      });
+    }
+  }
+
+  // Attempt play after metadata and also immediately
+  video.addEventListener("loadedmetadata", tryPlay, { once: true });
+  tryPlay();
+
+  // Fallback: first user interaction starts video if autoplay was blocked
+  function gestureStart() {
+    if (video.paused) {
+      if (status) status.textContent = "";
+      tryPlay();
+    }
+    window.removeEventListener("pointerdown", gestureStart);
+    window.removeEventListener("keydown", gestureStart);
+  }
+  window.addEventListener("pointerdown", gestureStart);
+  window.addEventListener("keydown", gestureStart);
 
   function updateUI() {
     const dur = video.duration || 0;
@@ -88,35 +110,94 @@ WAI-ARIA Roles
       timer.textContent = "Ad ends in: " + remaining + "s";
       prog.value = Math.min(100, Math.max(0, (cur / dur) * 100));
     } else {
-      timer.textContent = "Ad ends in: 0s";
+      timer.textContent = "Ad ends in: --s";
       prog.value = 0;
     }
   }
-
   video.addEventListener("timeupdate", updateUI);
   video.addEventListener("loadedmetadata", updateUI);
 
-  let clicks = 0;
-  skipBtn.textContent = "Skip (0/3)";
+  function showKhat() {
+    const wrap = document.createElement("div");
+    wrap.className = "khat-pop";
+    const im = document.createElement("img");
+    im.src = "images/ADspace/khat.gif";
+    im.alt = "khat";
+    wrap.appendChild(im);
+    document.body.appendChild(wrap);
 
-  skipBtn.addEventListener("click", function () {
+    setTimeout(() => wrap.classList.add("fade"), 450);
+    setTimeout(() => wrap.remove(), 950);
+  }
+
+  function playLaugh() {
+    if (!laugh) return;
+    laugh.currentTime = 0;
+    laugh.play().catch(() => {});
+  }
+
+  let clicks = 0;
+  skipBtn.addEventListener("click", () => {
     clicks = Math.min(3, clicks + 1);
     skipBtn.textContent = "Skip (" + clicks + "/3)";
-
-    if (laugh) {
-      laugh.currentTime = 0;
-      laugh.play().catch(() => {});
-    }
+    playLaugh();
+    showKhat();
 
     if (clicks >= 3) {
       video.pause();
-      overlay.classList.add("is-closed");
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden", "true");
     }
   });
 
-  video.addEventListener("ended", function () {
-    overlay.classList.add("is-closed");
+  video.addEventListener("ended", () => {
+    overlay.classList.remove("show");
+    overlay.setAttribute("aria-hidden", "true");
   });
+
+  // Create layered static ad popups above the video
+  const staticAds = ["images/ADspace/Binking.JPG", "images/ADspace/Burger.jpg", "images/ADspace/Butter.jpg", "images/ADspace/Handshake.JPG", "images/ADspace/im_ALPHA.jpg", "images/ADspace/Indeed.JPG", "images/ADspace/InternshipAD.JPG", "images/ADspace/pranko-funny-ads.png", "images/ADspace/studentLoans.jpg", "images/ADspace/unemployment.JPG"];
+  const count = Math.min(4, staticAds.length); // 4 layered ads
+  for (let i = 0; i < count; i++) {
+    const sOverlay = document.createElement("div");
+    sOverlay.className = "static-ad-overlay show";
+    sOverlay.style.zIndex = String(11000 + i); // above video
+    sOverlay.setAttribute("aria-hidden", "false");
+
+    const box = document.createElement("div");
+    box.className = "static-ad-box";
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.setAttribute("aria-label", "Image advertisement");
+
+    const top = document.createElement("div");
+    top.className = "static-ad-top";
+
+    const label = document.createElement("div");
+    label.className = "static-ad-label";
+    label.textContent = "Advertisement";
+
+    const close = document.createElement("button");
+    close.className = "static-ad-close";
+    close.type = "button";
+    close.setAttribute("aria-label", "Close");
+    close.textContent = "×";
+
+    top.appendChild(label);
+    top.appendChild(close);
+
+    const img = document.createElement("img");
+    img.className = "static-ad-image";
+    img.alt = "Ad";
+    img.src = staticAds[(i) % staticAds.length];
+
+    box.appendChild(top);
+    box.appendChild(img);
+    sOverlay.appendChild(box);
+    document.body.appendChild(sOverlay);
+
+    close.addEventListener("click", () => sOverlay.remove());
+  }
 })();
 </script>
 

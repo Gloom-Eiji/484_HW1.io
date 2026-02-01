@@ -114,52 +114,59 @@ blockquote {
 }
 
 
-/* Hardcoded modal ads (no JavaScript) */
+/* FINAL AD MODALS START */
 .video-ad-overlay,
-.img-ad-overlay{
+.static-ad-overlay{
   position: fixed;
   inset: 0;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.50);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.video-ad-overlay{ z-index: 10000; }
-.img-ad-overlay{ z-index: 11000; }
+.video-ad-overlay.show{ display: flex; z-index: 10000; }
 
-/* Video modal */
 .video-ad-box{
-  width: min(900px, 92vw);
+  width: min(920px, 92vw);
   background: #111;
   border: 2px solid #444;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 55px rgba(0,0,0,0.55);
 }
 
 .video-ad-top{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6em 0.8em;
+  padding: 0.6em 0.85em;
   color: #fff;
   font-size: 0.95em;
+  gap: 0.75em;
+}
+
+.video-ad-top-left{
+  display: flex;
+  gap: 0.9em;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .video-ad-controls{
   display: flex;
-  gap: 0.5em;
+  gap: 0.6em;
   align-items: center;
 }
 
 .video-ad-skip{
-  padding: 0.35em 0.65em;
+  padding: 0.35em 0.7em;
   background: #eee;
   color: #000;
-  text-decoration: none;
   border: 1px solid #999;
   border-radius: 3px;
+  cursor: pointer;
+  font: inherit;
 }
 
 .video-ad-video{
@@ -169,55 +176,8 @@ blockquote {
   background: #000;
 }
 
-/* Static image modal */
-.img-ad-box{
-  width: min(520px, 92vw);
-  background: #fff;
-  border: 2px solid #333;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.45);
-}
-
-.img-ad-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.45em 0.6em;
-  font-size: 0.95em;
-}
-
-.img-ad-label{
-  font-weight: bold;
-}
-
-.img-ad-close{
-  border: 0;
-  background: transparent;
-  font-size: 1.35em;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.img-ad-image{
-  width: 100%;
-  height: auto;
-  display: block;
-  background: #000;
-}
-
-/* CSS-only close (checkbox hack) for static ads */
-#adCloseToggle{
-  position: absolute;
-  left: -9999px;
-}
-
-#adCloseToggle:checked ~ .img-ad-overlay{
-  display: none;
-}
-
-
-/* Video progress bar */
 .video-ad-progress-wrap{
-  padding: 0.5em 0.8em 0.85em;
+  padding: 0.55em 0.85em 0.9em;
   background: #111;
 }
 
@@ -226,8 +186,56 @@ blockquote {
   height: 10px;
 }
 
-/* When prank-skip finally succeeds */
-.video-ad-overlay.is-closed{
-  display: none;
+/* Static ad modals */
+.static-ad-overlay.show{ display: flex; }
+
+.static-ad-box{
+  width: min(560px, 92vw);
+  background: #fff;
+  border: 2px solid #333;
+  box-shadow: 0 12px 55px rgba(0,0,0,0.45);
 }
+
+.static-ad-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45em 0.65em;
+  font-size: 0.95em;
+}
+
+.static-ad-label{
+  font-weight: bold;
+}
+
+.static-ad-close{
+  border: 0;
+  background: transparent;
+  font-size: 1.35em;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.static-ad-image{
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+}
+
+/* Khat popup */
+.khat-pop{
+  position: fixed;
+  left: 50%;
+  top: 16%;
+  transform: translateX(-50%);
+  width: min(260px, 70vw);
+  z-index: 20000;
+  opacity: 1;
+  transition: opacity 450ms ease;
+  pointer-events: none;
+}
+.khat-pop.fade{ opacity: 0; }
+.khat-pop img{ width: 100%; height: auto; display: block; }
+/* FINAL AD MODALS END */
 
