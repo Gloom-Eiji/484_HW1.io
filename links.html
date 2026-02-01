@@ -55,11 +55,12 @@ Fragment identifiers
         <div id="videoAdStatus" aria-live="polite"></div>
       </div>
       <div class="video-ad-controls">
+        <button id="videoAdUnmute" class="video-ad-skip" type="button">Unmute</button>
         <button id="videoAdSkip" class="video-ad-skip" type="button">Skip (0/3)</button>
       </div>
     </div>
 
-    <video id="videoAdVideo" class="video-ad-video" playsinline muted>
+    <video id="videoAdVideo" class="video-ad-video" playsinline muted controls>
       <source src="Videos/LegoCity_AD.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -81,6 +82,7 @@ Fragment identifiers
   const timer = document.getElementById("videoAdTimer");
   const status = document.getElementById("videoAdStatus");
   const skipBtn = document.getElementById("videoAdSkip");
+  const unmuteBtn = document.getElementById("videoAdUnmute");
   const laugh = document.getElementById("catLaugh");
 
   if (!overlay || !video || !prog || !timer || !skipBtn) return;
@@ -95,13 +97,22 @@ Fragment identifiers
     const p = video.play();
     if (p && typeof p.catch === "function") {
       p.catch(() => {
-        if (status) status.textContent = "Click anywhere to start the ad 😈";
+        if (status) status.textContent = "Click anywhere to start. Use Unmute for sound 🔊";
       });
     }
   }
 
   // Attempt play after metadata and also immediately
-  video.addEventListener("loadedmetadata", tryPlay, { once: true });
+  video.addEventListener("loadedmetadata", () => {
+    // If the video is vertical, make the modal narrower so it looks like a short
+    try {
+      if (video.videoHeight > video.videoWidth) {
+        const box = overlay.querySelector(".video-ad-box");
+        if (box) box.style.width = "min(520px, 92vw)";
+      }
+    } catch (e) {}
+    tryPlay();
+  }, { once: true });
   tryPlay();
 
   // Fallback: first user interaction starts video if autoplay was blocked
@@ -110,6 +121,8 @@ Fragment identifiers
       if (status) status.textContent = "";
       tryPlay();
     }
+    // User gesture: allow audio now
+    video.muted = false;
     window.removeEventListener("pointerdown", gestureStart);
     window.removeEventListener("keydown", gestureStart);
   }
@@ -149,6 +162,15 @@ Fragment identifiers
     if (!laugh) return;
     laugh.currentTime = 0;
     laugh.play().catch(() => {});
+  }
+
+  if (unmuteBtn) {
+    unmuteBtn.addEventListener("click", () => {
+      video.muted = false;
+      // some browsers require a play() after unmuting
+      const p2 = video.play();
+      if (p2 && typeof p2.catch === "function") p2.catch(() => {});
+    });
   }
 
   let clicks = 0;

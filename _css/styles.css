@@ -239,3 +239,17 @@ blockquote {
 .khat-pop img{ width: 100%; height: auto; display: block; }
 /* FINAL AD MODALS END */
 
+
+/* FINAL: video sizing tweaks for vertical/short-style videos */
+.video-ad-box{
+  max-height: 92vh;
+}
+
+.video-ad-video{
+  max-height: 75vh;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #000;
+}
+
