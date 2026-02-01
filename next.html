@@ -56,7 +56,7 @@ Web Design Resources
       </div>
     </div>
 
-    <video id="videoAdVideo" class="video-ad-video" playsinline muted controls>
+    <video id="videoAdVideo" class="video-ad-video" playsinline muted>
       <source src="Videos/Whiteout_Survival_AD.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -141,6 +141,26 @@ Web Design Resources
   video.addEventListener("timeupdate", updateUI);
   video.addEventListener("loadedmetadata", updateUI);
 
+  /* lock playback (no pause/seek) */
+  let lastTime = 0;
+  let allowClose = false;
+  video.addEventListener("seeking", () => {
+    // snap back if user tries to scrub
+    if (!allowClose) {
+      const t = Math.min(lastTime, (video.duration || lastTime));
+      try { video.currentTime = t; } catch (e) {}
+    }
+  });
+  video.addEventListener("pause", () => {
+    if (!allowClose) {
+      const p3 = video.play();
+      if (p3 && typeof p3.catch === "function") p3.catch(() => {});
+    }
+  });
+  video.addEventListener("timeupdate", () => { lastTime = video.currentTime || lastTime; });
+  video.addEventListener("contextmenu", (e) => e.preventDefault());
+
+
   function showKhat() {
     const wrap = document.createElement("div");
     wrap.className = "khat-pop";
@@ -177,6 +197,7 @@ Web Design Resources
     showKhat();
 
     if (clicks >= 3) {
+      allowClose = true;
       video.pause();
       overlay.classList.remove("show");
       overlay.setAttribute("aria-hidden", "true");
@@ -184,6 +205,7 @@ Web Design Resources
   });
 
   video.addEventListener("ended", () => {
+    allowClose = true;
     overlay.classList.remove("show");
     overlay.setAttribute("aria-hidden", "true");
   });
