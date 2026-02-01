@@ -121,6 +121,98 @@
   });
 })();
 </script>
+
+<div id="adOverlay" class="ad-overlay" aria-hidden="true">
+  <div class="ad-box" role="dialog" aria-modal="true" aria-label="Video ad">
+    <div class="ad-top">
+      <div id="adTimer" class="ad-timer">Ad ends in: 0s</div>
+      <button id="adSkip" class="ad-skip" type="button" disabled>Skip (5)</button>
+    </div>
+
+    <video id="adVideo" class="ad-video" playsinline>
+      <source id="adSource" src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<audio id="catLaugh" preload="auto" src="videos/catLaugh.mp3"></audio>
+
+<script>
+(function () {
+  const adMap = {
+    "index.html": "videos/Result.mp4",
+    "links.html": "videos/LegoCity_AD.mp4",
+    "next.html": "videos/Whiteout_Survival_AD.mp4",
+    "reference.html": "videos/Ant_Kingdom_AD.mp4",
+    "structure.html": "videos/Result.mp4",
+    "syntax.html": "videos/LegoCity_AD.mp4"
+  };
+
+  const overlay = document.getElementById("adOverlay");
+  const video = document.getElementById("adVideo");
+  const source = document.getElementById("adSource");
+  const timerEl = document.getElementById("adTimer");
+  const skipBtn = document.getElementById("adSkip");
+  const laugh = document.getElementById("catLaugh");
+
+  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  const videoSrc = adMap[page];
+  if (!videoSrc) return;
+
+  function openAd() {
+    source.src = videoSrc;
+    video.load();
+    overlay.classList.add("show");
+    overlay.setAttribute("aria-hidden", "false");
+    video.controls = false;
+    video.play().catch(() => {});
+    startRemainingTimer();
+  }
+
+  function closeAd(playLaugh) {
+    overlay.classList.remove("show");
+    overlay.setAttribute("aria-hidden", "true");
+    video.pause();
+    video.currentTime = 0;
+
+    if (playLaugh) {
+      laugh.currentTime = 0;
+      laugh.play().catch(() => {});
+    }
+  }
+
+  let tick = null;
+  function startRemainingTimer() {
+    clearInterval(tick);
+    tick = setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((video.duration || 0) - video.currentTime));
+      timerEl.textContent = "Ad ends in: " + remaining + "s";
+      if (remaining === 0 && video.duration) clearInterval(tick);
+    }, 250);
+  }
+
+  let skipLeft = 5;
+  skipBtn.disabled = true;
+  skipBtn.textContent = "Skip (" + skipLeft + ")";
+  const skipInterval = setInterval(() => {
+    skipLeft--;
+    if (skipLeft <= 0) {
+      clearInterval(skipInterval);
+      skipBtn.disabled = false;
+      skipBtn.textContent = "Skip";
+    } else {
+      skipBtn.textContent = "Skip (" + skipLeft + ")";
+    }
+  }, 1000);
+
+  skipBtn.addEventListener("click", () => closeAd(true));
+  video.addEventListener("ended", () => closeAd(false));
+
+  window.addEventListener("load", () => setTimeout(openAd, 600));
+})();
+</script>
+
 </body>
   </html>
 
