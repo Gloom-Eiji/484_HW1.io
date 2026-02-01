@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: rgb(107, 107, 132);
 }
 body {
-	font-family: Verdana, Geneva, sans-serif;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
 	font-size: 100%;
 	width: 80%;
 	margin-right: auto;
@@ -111,4 +111,19 @@ blockquote {
 .flowLeft {
 	float: left;
 	margin-right: 10px;
+}
+
+.rainbow span.rb0 { color: #e53935; }
+.rainbow span.rb1 { color: #fb8c00; }
+.rainbow span.rb2 { color: #fdd835; }
+.rainbow span.rb3 { color: #43a047; }
+.rainbow span.rb4 { color: #1e88e5; }
+.rainbow span.rb5 { color: #8e24aa; }
+
+.ad-slot {
+  border: 2px dashed #999;
+  padding: 1em;
+  margin: 1em 0;
+  text-align: center;
+  font-size: 0.9em;
 }

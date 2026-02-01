@@ -5,7 +5,7 @@
 <title>Creating Links</title>
 <link href="_css/styles.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body class="rainbow">
 <header>
   <h1>Comp 484</h1>
   <h2>Creating Links</h2>
@@ -20,6 +20,8 @@
   <li><a href="next.html" title="Next steps">Next steps</a></li>
 </ul>
 </nav>
+<div class="ad-slot">Ad space</div>
+
 
 <main>
   <p>Perhaps the most important aspect of HTML is the ability to link from one document to another. This is the basic concept underlying   the web and without this functionality the World Wide Web would not exist. </p>
@@ -53,8 +55,76 @@
   <pre>&lt;a href=&rdquo;#camp&rdquo;&gt;Learn more about camping&lt;/a&gt;</pre>
   <p> Note the hash symbol (#) prior to the ID value. This tells the browser to look for an element with the ID value that follows.You can link to fragment identifiers on external pages as well. Simply append the fragment identifier to the URL and the link will jump to not only to that page, but that specific section as well.</p>
   <pre>&lt;a href=&rdquo;faq.htm#camp&rdquo;&gt;Read our FAQ on camping.&lt;/a&gt;</pre>
-  </body>
+  
+<script>
+(function () {
+  function shouldSkip(el) {
+    if (!el || el.nodeType !== 1) return false;
+    var tag = el.tagName;
+    return tag === "SCRIPT" || tag === "STYLE" || tag === "PRE" || tag === "CODE" || tag === "TEXTAREA";
+  }
+
+  function wrapTextNode(node) {
+    var text = node.nodeValue;
+    if (!text || !text.trim()) return;
+
+    var frag = document.createDocumentFragment();
+    var colorIndex = 0;
+
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (ch === "
+") {
+        frag.appendChild(document.createTextNode("
+"));
+        continue;
+      }
+      if (ch === " " || ch === "	") {
+        frag.appendChild(document.createTextNode(ch));
+        continue;
+      }
+      var span = document.createElement("span");
+      span.className = "rb" + (colorIndex % 6);
+      span.textContent = ch;
+      frag.appendChild(span);
+      colorIndex++;
+    }
+    node.parentNode.replaceChild(frag, node);
+  }
+
+  function rainbowify(root) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+
+        var cur = p;
+        while (cur) {
+          if (shouldSkip(cur)) return NodeFilter.FILTER_REJECT;
+          cur = cur.parentElement;
+        }
+
+        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var nodes = [];
+    var current;
+    while ((current = walker.nextNode())) nodes.push(current);
+    for (var j = 0; j < nodes.length; j++) wrapTextNode(nodes[j]);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var targets = document.querySelectorAll(".rainbow");
+    for (var i = 0; i < targets.length; i++) rainbowify(targets[i]);
+  });
+})();
+</script>
+</body>
   </html>
+
+<div class="ad-slot">Ad space</div>
 </main>
 </body>
 </html>

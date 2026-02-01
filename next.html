@@ -5,7 +5,7 @@
 <title>Next Steps</title>
 <link href="_css/styles.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body class="rainbow">
 <header>
   <h1>Comp 484</h1>
   <h2>Next Steps</h2>
@@ -20,6 +20,8 @@
   <li><a href="next.html" title="Next steps">Next steps</a></li>
 </ul>
 </nav>
+<div class="ad-slot">Ad space</div>
+
 
 <main>
   <p>Once you master the basics of authoring HTML, you&rsquo;ll need focus on what your next steps will be. If you&rsquo;re an aspiring web designer, you&rsquo;ll need to dive deeper into HTML, CSS, and JavaScript. If you&rsquo;re maintaining a corporate or personal site through a CMS, you&rsquo;ll need to focus on how the CMS works, and the most efficient ways to edit and maintain content. On this page I&rsquo;ll give you some basic advice on how to approach learning web design and point you towards additional resources that can help you along the way.</p>
@@ -55,6 +57,74 @@
     <li><strong>HTML5 Rocks</strong><br>
       Once you&rsquo;ve got the basics down, check out sites like HTML5 Rocks. This site feature articles, tutorials, and other resources that help you keep up with the evolving web.</li>
   </ul>
+
+<div class="ad-slot">Ad space</div>
 </main>
+
+<script>
+(function () {
+  function shouldSkip(el) {
+    if (!el || el.nodeType !== 1) return false;
+    var tag = el.tagName;
+    return tag === "SCRIPT" || tag === "STYLE" || tag === "PRE" || tag === "CODE" || tag === "TEXTAREA";
+  }
+
+  function wrapTextNode(node) {
+    var text = node.nodeValue;
+    if (!text || !text.trim()) return;
+
+    var frag = document.createDocumentFragment();
+    var colorIndex = 0;
+
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (ch === "
+") {
+        frag.appendChild(document.createTextNode("
+"));
+        continue;
+      }
+      if (ch === " " || ch === "	") {
+        frag.appendChild(document.createTextNode(ch));
+        continue;
+      }
+      var span = document.createElement("span");
+      span.className = "rb" + (colorIndex % 6);
+      span.textContent = ch;
+      frag.appendChild(span);
+      colorIndex++;
+    }
+    node.parentNode.replaceChild(frag, node);
+  }
+
+  function rainbowify(root) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+
+        var cur = p;
+        while (cur) {
+          if (shouldSkip(cur)) return NodeFilter.FILTER_REJECT;
+          cur = cur.parentElement;
+        }
+
+        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var nodes = [];
+    var current;
+    while ((current = walker.nextNode())) nodes.push(current);
+    for (var j = 0; j < nodes.length; j++) wrapTextNode(nodes[j]);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var targets = document.querySelectorAll(".rainbow");
+    for (var i = 0; i < targets.length; i++) rainbowify(targets[i]);
+  });
+})();
+</script>
 </body>
 </html>
